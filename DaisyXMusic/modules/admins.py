@@ -48,11 +48,11 @@ async def update_admin(client, message: Message):
 async def pause(_, message: Message):
     chat_id = get_chat_id(message.chat)
     (
-      await message.reply_text("▶️ Paused!")
+      await message.reply_text("▶️ Paused ▶️!")
     ) if (
         callsmusic.pause(chat_id)
     ) else (
-        await message.reply_text("❗ Nothing is playing!")
+        await message.reply_text("Nothing is playing!")
     )
         
 
@@ -63,11 +63,11 @@ async def pause(_, message: Message):
 async def resume(_, message: Message):
     chat_id = get_chat_id(message.chat)
     (
-        await message.reply_text("⏸ Resumed!")
+        await message.reply_text("⏸ Resumed ⏸!")
     ) if (
         callsmusic.resume(chat_id)
     ) else (
-        await message.reply_text("❗ Nothing is paused!")
+        await message.reply_text("Nothing is paused!")
     )
         
 
@@ -78,7 +78,7 @@ async def resume(_, message: Message):
 async def stop(_, message: Message):
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.active_chats:
-        await message.reply_text("❗ Nothing is streaming!")
+        await message.reply_text(" Nothing is streaming!")
     else:
         try:
             queues.clear(chat_id)
@@ -86,7 +86,7 @@ async def stop(_, message: Message):
             pass
 
         await callsmusic.stop(chat_id)
-        await message.reply_text("❌ Stopped streaming!")
+        await message.reply_text("❌ Stopped streaming ❌!")
 
 
 @Client.on_message(command("skip") & other_filters)
@@ -96,7 +96,7 @@ async def skip(_, message: Message):
     global que
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.active_chats:
-        await message.reply_text("❗ Nothing is playing to skip!")
+        await message.reply_text(" Nothing is playing to skip!")
     else:
         queues.task_done(chat_id)
         if queues.is_empty(chat_id):
